@@ -1,8 +1,9 @@
 
 
 <?php
-
-// Función para mostrar un botón estilizado para volver al menú
+// ----------------------------------------------
+// Función para mostrar un botón estilizado que permite volver al menú principal
+// ----------------------------------------------
 function volverAlMenu($url) {
     echo "
     <div style='margin-top: 20px;'>
@@ -20,6 +21,8 @@ function volverAlMenu($url) {
         </a>
     </div>";
 }
+
+// Llamada a la función para mostrar el botón
 volverAlMenu('menu.php');
 ?>
 
@@ -29,16 +32,19 @@ volverAlMenu('menu.php');
     <meta charset="UTF-8">
     <title>Problema #6</title>
     <style>
+        /* Estilos generales del cuerpo */
         body {
             font-family: Arial, sans-serif;
             background-color: #f3f3f3;
             padding: 40px;
         }
 
+        /* Estilo del título principal */
         h2 {
             text-align: center;
         }
 
+        /* Estilos del formulario */
         form {
             max-width: 400px;
             margin: auto;
@@ -48,6 +54,7 @@ volverAlMenu('menu.php');
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
 
+        /* Campo de número del presupuesto */
         input[type="number"] {
             width: 100%;
             padding: 10px;
@@ -57,6 +64,7 @@ volverAlMenu('menu.php');
             border-radius: 5px;
         }
 
+        /* Botón de enviar */
         input[type="submit"] {
             background-color: #4CAF50;
             color: white;
@@ -67,10 +75,12 @@ volverAlMenu('menu.php');
             cursor: pointer;
         }
 
+        /* Efecto hover del botón */
         input[type="submit"]:hover {
             background-color: #45a049;
         }
 
+        /* Estilo para mostrar el resultado */
         .resultado {
             max-width: 500px;
             margin: 20px auto;
@@ -80,6 +90,7 @@ volverAlMenu('menu.php');
             border-radius: 5px;
         }
 
+        /* Pie de página */
         footer {
             text-align: center;
             margin-top: 50px;
@@ -90,8 +101,10 @@ volverAlMenu('menu.php');
 </head>
 <body>
 
+<!-- Título principal del formulario -->
 <h2>Reparto de Presupuesto Hospitalario</h2>
 
+<!-- Formulario para ingresar el presupuesto -->
 <form method="post">
     <label for="presupuesto">Ingrese el presupuesto anual del hospital ($):</label>
     <input type="number" name="presupuesto" id="presupuesto" required min="1">
@@ -99,14 +112,19 @@ volverAlMenu('menu.php');
 </form>
 
 <?php
+// ----------------------------------------------
+// Validación: si se envió el formulario y existe el valor de "presupuesto"
+// ----------------------------------------------
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["presupuesto"])) {
+    // Convertimos el valor recibido a número decimal
     $presupuestoTotal = floatval($_POST["presupuesto"]);
 
-    // Porcentajes
-    $gineco = $presupuestoTotal * 0.40;
-    $trauma = $presupuestoTotal * 0.35;
-    $pediatria = $presupuestoTotal * 0.25;
+    // Calculamos la distribución por departamentos
+    $gineco = $presupuestoTotal * 0.40;     // 40% para Ginecología
+    $trauma = $presupuestoTotal * 0.35;     // 35% para Traumatología
+    $pediatria = $presupuestoTotal * 0.25;  // 25% para Pediatría
 
+    // Mostramos el resultado con formato de dos decimales
     echo "<div class='resultado'>";
     echo "<h3>Resultado del Reparto:</h3>";
     echo "<ul>";
@@ -122,9 +140,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["presupuesto"])) {
 </html>
 
 <?php
-// Footer con la fecha del día
+// ----------------------------------------------
+// Footer que muestra la fecha actual de ejecución
+// ----------------------------------------------
 echo "<footer style='margin-top: 40px; font-style: italic;'>
         Fecha de ejecución: " . date('d/m/Y') . "
       </footer>";
-
 ?>

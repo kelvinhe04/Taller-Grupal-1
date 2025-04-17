@@ -4,23 +4,27 @@
     <meta charset="UTF-8">
     <title>Menú Principal de Problemas</title>
     <style>
+        /* Estilos generales de la página */
         body {
             font-family: Arial, sans-serif;
             padding: 30px;
             background-color: #f5f5f5;
         }
 
+        /* Título principal centrado */
         h1 {
             text-align: center;
             margin-bottom: 40px;
         }
 
+        /* Contenedor en forma de grid para acomodar las tarjetas */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 20px;
         }
 
+        /* Estilos de cada tarjeta (card) */
         .card {
             background-color: white;
             border: 2px solid #ccc;
@@ -32,19 +36,26 @@
             color: #333;
         }
 
+        /* Efecto al pasar el mouse por encima */
         .card:hover {
             transform: scale(1.03);
             border-color: #333;
         }
 
+        /* Texto en negrita */
         .bold {
             font-weight: bold;
         }
     </style>
 </head>
 <body>
+    <!-- Título principal -->
     <h1>Menú Principal de Problemas</h1>
+
+    <!-- Contenedor de las tarjetas -->
     <div class="grid">
+
+        <!-- Cada tarjeta representa un problema -->
         <a class="card" href="Problema1.php">
             Calcular la media de los 5 primeros números positivos introducidos a partir de un formulario. 
             <br><br><span class="bold">Problema #1</span>
@@ -96,6 +107,7 @@
             Imprimir los N primeros múltiplos de 4, donde N es un valor introducido por teclado. (Ej: 4×1=4, 4×2=8, ...).
             <br><br><span class="bold">Problema #10</span>
         </a>
+
     </div>
 </body>
 </html>

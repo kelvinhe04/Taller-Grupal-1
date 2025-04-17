@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +9,9 @@
 <body>
 
 <?php
-// Función para mostrar un botón estilizado para volver al menú
+// ------------------------------
+// Función para mostrar un botón estilizado que lleva al menú principal
+// ------------------------------
 function volverAlMenu($url) {
     echo "
     <div style='margin-top: 20px;'>
@@ -26,28 +29,32 @@ function volverAlMenu($url) {
         </a>
     </div>";
 }
+
+// Llamamos a la función para mostrar el botón de regreso al menú
 volverAlMenu('menu.php');
 
-// Inicializamos la variable $suma en 0.
+// ------------------------------
+// Cálculo de la suma del 1 al 1000
+// ------------------------------
+
+// Inicializamos la variable suma con valor 0
 $suma = 0;
 
-// Usamos un bucle for para recorrer los números del 1 al 1000.
+// Usamos un bucle for para recorrer todos los números del 1 al 1000
 for ($i = 1; $i <= 1000; $i++) {
-    $suma += $i;
+    $suma += $i; // Sumamos el valor de $i a $suma en cada iteración
 }
 
-// Mostramos el resultado de la suma en pantalla.
+// Mostramos el resultado final en pantalla
 echo "<h2>La suma de los números del 1 al 1000 es: $suma</h2>";
 
-
-// Footer con la fecha del día
+// ------------------------------
+// Mostrar la fecha de ejecución como pie de página
+// ------------------------------
 echo "<footer style='margin-top: 40px; font-style: italic;'>
         Fecha de ejecución: " . date('d/m/Y') . "
       </footer>";
 ?>
 
-    
 </body>
 </html>
-
-

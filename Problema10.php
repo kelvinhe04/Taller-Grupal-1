@@ -1,3 +1,4 @@
+
 <?php
 // Función para mostrar un botón estilizado para volver al menú
 function volverAlMenu($url) {
@@ -17,26 +18,29 @@ function volverAlMenu($url) {
         </a>
     </div>";
 }
+// Mostrar el botón llamando la función
 volverAlMenu('menu.php');
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Problema #10</title>
     <style>
+        /* Estilo general del cuerpo */
         body {
             font-family: Arial, sans-serif;
             background-color: #f9f9f9;
             padding: 40px;
         }
 
+        /* Título */
         h2 {
             text-align: center;
             color: #444;
         }
 
+        /* Estilo del formulario */
         form {
             max-width: 400px;
             margin: auto;
@@ -46,6 +50,7 @@ volverAlMenu('menu.php');
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
 
+        /* Input numérico */
         input[type="number"] {
             width: 100%;
             padding: 10px;
@@ -54,6 +59,7 @@ volverAlMenu('menu.php');
             border-radius: 5px;
         }
 
+        /* Botón */
         input[type="submit"] {
             background-color: #4CAF50;
             color: white;
@@ -68,6 +74,7 @@ volverAlMenu('menu.php');
             background-color: #388e3c;
         }
 
+        /* Resultado */
         .resultado {
             max-width: 500px;
             margin: 30px auto;
@@ -78,6 +85,7 @@ volverAlMenu('menu.php');
             box-shadow: 0 0 10px rgba(0,0,0,0.05);
         }
 
+        /* Pie de página */
         footer {
             text-align: center;
             margin-top: 40px;
@@ -89,37 +97,36 @@ volverAlMenu('menu.php');
 
 <h2>Múltiplos de 4</h2>
 
+<!-- Formulario para pedir cuántos múltiplos mostrar -->
 <form method="post">
     <label for="numero">¿Cuántos múltiplos de 4 deseas mostrar?</label>
     <input type="number" name="numero" id="numero" min="1" required>
 
     <input type="submit" value="Calcular">
 </form>
-
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $n = intval($_POST["numero"]);
+    $n = intval($_POST["numero"]); // Convertimos a entero
 
     echo "<div class='resultado'>";
     echo "<h3>Los $n primeros múltiplos de 4:</h3>";
     echo "<ul>";
+
+    // Bucle para calcular los múltiplos
     for ($i = 1; $i <= $n; $i++) {
         $multiplo = 4 * $i;
         echo "<li>4 × $i = $multiplo</li>";
     }
+
     echo "</ul>";
     echo "</div>";
 }
 ?>
-
-
 </body>
 </html>
-
 <?php
 // Footer con la fecha del día
 echo "<footer style='margin-top: 40px; font-style: italic;'>
         Fecha de ejecución: " . date('d/m/Y') . "
       </footer>";
-
 ?>
