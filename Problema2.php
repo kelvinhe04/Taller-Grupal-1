@@ -34,7 +34,7 @@ echo "<h2>La suma de los números del 1 al 1000 es: $suma</h2>";
 
 
 // Footer con la fecha del día
-echo "<footer style='margin-top: 40px; font-style: italic; color: gray;'>
+echo "<footer style='margin-top: 40px; font-style: italic;'>
         Fecha de ejecución: " . date('d/m/Y') . "
       </footer>";
 ?>
