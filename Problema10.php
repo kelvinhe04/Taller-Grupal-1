@@ -1,6 +1,4 @@
 <?php
-
-
 // Función para mostrar un botón estilizado para volver al menú
 function volverAlMenu($url) {
     echo "
@@ -26,7 +24,7 @@ volverAlMenu('menu.php');
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Múltiplos de 4</title>
+    <title>Problema #10</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -78,23 +76,6 @@ volverAlMenu('menu.php');
             border-left: 5px solid #4CAF50;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0,0,0,0.05);
-        }
-
-        .boton-volver {
-            display: block;
-            width: fit-content;
-            margin: 20px auto;
-            background-color: #2196F3;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            text-align: center;
-        }
-
-        .boton-volver:hover {
-            background-color: #1976D2;
         }
 
         footer {

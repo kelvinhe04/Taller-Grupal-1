@@ -1,6 +1,4 @@
 <?php
-
-
 // Función para mostrar un botón estilizado para volver al menú
 function volverAlMenu($url) {
     echo "
@@ -22,12 +20,11 @@ function volverAlMenu($url) {
 volverAlMenu('menu.php');
 ?>
 
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Determinar Estación del Año</title>
+    <title>Problema #8</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -78,21 +75,6 @@ volverAlMenu('menu.php');
             padding: 20px;
             border-left: 6px solid #4CAF50;
             border-radius: 5px;
-        }
-
-        .boton-volver {
-            display: inline-block;
-            margin-top: 20px;
-            background-color: #2196F3;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-        }
-
-        .boton-volver:hover {
-            background-color: #1976D2;
         }
 
         footer {
