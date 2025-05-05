@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Problema #8</title>
+        <link rel="stylesheet" href="../estilo.css" />
+    </head>
+    <style>
+        #resultado.verano {
+            background-color: #fff3b0;
+            color: #333;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        #resultado.otono {
+            background-color: #e76f51;
+            color: #fff;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        #resultado.invierno {
+            background-color: #a8dadc;
+            color: #000;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        #resultado.primavera {
+            background-color: #caffbf;
+            color: #333;
+            padding: 15px;
+            border-radius: 10px;
+        }
+    
+    </style>
+
+    <body>
+        <!-- Enlace para volver al menú principal -->
+        <div class="volver">
+            <a href="../menu.php">< Volver al menú principal</a>
+        </div>
+
+        <h2>Determinar Estación del Año</h2>
+
+        <!-- Formulario para ingresar el mes y el día -->
+        <form id="formulario">
+            <div class="input-container">
+                <label for="mes">Mes:</label>
+                <input
+                    type="number"
+                    id="mes"
+                    name="mes"
+                    min="1"
+                    max="12"
+                    required
+                />
+            </div>
+            <div class="input-container">
+                <label for="dia">Día:</label>
+                <input
+                    type="number"
+                    id="dia"
+                    name="dia"
+                    min="1"
+                    max="31"
+                    required
+                />
+            </div>
+            <!-- Botón para enviar el formulario -->
+            <input type="submit" value="Ver Estación" />
+        </form>
+
+        <!-- Área donde se mostrará el resultado -->
+        <div
+            id="resultado"
+            style="margin-top: 30px; width: 30%; text-align: center"
+        ></div>
+
+        <!-- Contenedor para el footer -->
+        <div id="footer"></div>
+
+        <script>
+            // Cargar el contenido del footer desde un archivo PHP externo
+            fetch("../footer.php")
+                .then((response) => response.text())
+                .then((html) => {
+                    document.getElementById("footer").innerHTML = html;
+                })
+                .catch((error) => {
+                    console.error("Error al cargar el footer:", error);
+                });
+
+            // Manejar el envío del formulario
+            document
+                .getElementById("formulario")
+                .addEventListener("submit", function (e) {
+                    e.preventDefault(); // Evitar que se recargue la página
+
+                    // Obtener los valores del formulario
+                    const mes = parseInt(document.getElementById("mes").value);
+                    const dia = parseInt(document.getElementById("dia").value);
+
+                    // Días máximos por mes (no considera años bisiestos)
+                    const diasPorMes = {
+                        1: 31,
+                        2: 28,
+                        3: 31,
+                        4: 30,
+                        5: 31,
+                        6: 30,
+                        7: 31,
+                        8: 31,
+                        9: 30,
+                        10: 31,
+                        11: 30,
+                        12: 31,
+                    };
+
+                    // Validar que el día sea válido para el mes ingresado
+                    if (dia < 1 || dia > diasPorMes[mes]) {
+                        alert("⚠️ Fecha no válida para ese mes.");
+                        return;
+                    }
+
+                    // Enviar los datos al archivo PHP usando fetch y JSON
+                    fetch("Problema8.php", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ dia, mes }), // Convertir los datos a JSON
+                    })
+                        .then((response) => response.json()) // Leer la respuesta como JSON
+                        .then((data) => {
+                            // Mostrar el resultado en pantalla
+                            document.getElementById(
+                                "resultado"
+                            ).innerHTML = `<h3>La estación es: <strong>${data.estacion}</strong></h3>`;
+
+                            // Quitar cualquier clase de estación previa del div resultado
+                            resultado.className = "";
+
+                            // Agregar clase de estación al div resultado
+                            if (data.estacion.includes("Verano")) {
+                                resultado.classList.add("verano");
+                            } else if (data.estacion.includes("Otoño")) {
+                                resultado.classList.add("otono");
+                            } else if (data.estacion.includes("Invierno")) {
+                                resultado.classList.add("invierno");
+                            } else if (data.estacion.includes("Primavera")) {
+                                resultado.classList.add("primavera");
+                            }
+                        })
+
+                        .catch((error) => {
+                            // Mostrar mensaje de error en caso de fallo
+                            document.getElementById(
+                                "resultado"
+                            ).innerHTML = `<p style="color: red;">❌ Error: ${error.message}</p>`;
+                        });
+                });
+        </script>
+    </body>
+</html>

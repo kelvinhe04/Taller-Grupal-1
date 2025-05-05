@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Problema #2</title>
+        <link rel="stylesheet" href="../estilo.css" />
+
+        <!-- Script para cargar el resultado y el footer -->
+        <script>
+            // Se espera que el contenido de la página esté completamente cargado antes de ejecutar el código
+            document.addEventListener("DOMContentLoaded", function () {
+
+                // Cargar la suma de los números del 1 al 1000 desde el archivo PHP (problema2.php)
+                fetch("problema2.php")
+                    .then((response) => response.json()) // Convertir la respuesta en formato JSON
+                    .then((data) => {
+                        // Insertar el resultado en el div con el id "resultado"
+                        document.getElementById(
+                            "resultado"
+                        ).innerHTML = `<h2>La suma de los números del 1 al 1000 es: ${data.suma}</h2>`;
+                    })
+                    .catch((error) => {
+                        // Manejar errores si no se puede obtener la suma
+                        console.error("Error al obtener la suma:", error);
+                    });
+
+                // Cargar el contenido del footer desde el archivo "footer.php"
+                fetch("../footer.php")
+                    .then((response) => response.text()) // Convertir la respuesta en texto
+                    .then((html) => {
+                        // Insertar el HTML del footer en el div con el id "footer"
+                        document.getElementById("footer").innerHTML = html;
+                    })
+                    .catch((error) => {
+                        // Manejar errores si no se puede cargar el footer
+                        console.error("Error al cargar el footer:", error);
+                    });
+            });
+        </script>
+    </head>
+    <body>
+        <!-- Enlace para regresar al menú principal -->
+        <div class="volver">
+            <a href="../menu.php">< Volver al menú principal</a>
+        </div>
+
+        <!-- Título de la página -->
+        <h1>Calcular la suma del 1 al 1000</h1>
+
+        <!-- Aquí se mostrará el resultado de la suma -->
+        <div id="resultado"></div>
+
+        <!-- Aquí se insertará el footer -->
+        <div id="footer"></div>
+    </body>
+</html>

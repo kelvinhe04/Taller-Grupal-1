@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Problema #7</title>
+        <link rel="stylesheet" href="../estilo.css" />
+
+        <style>
+            /* Estilos del contenedor del formulario de notas */
+            #notas-form-container {
+                width: 60%;
+                margin: 20px auto;
+                padding: 20px;
+                border-radius: 12px;
+                color: white;
+                font-family: Arial, sans-serif;
+            }
+
+            /* Estilos para los campos de entrada de las notas */
+            #notas-form-container input[type="number"] {
+                width: 100%;
+                padding: 8px;
+                margin: 5px 0 15px;
+                border: 1px solid #444;
+                border-radius: 5px;
+                background-color: #2b2b2b;
+                color: #90ee90;
+            }
+
+            /* Estilos para el botón de envío */
+            #notas-form-container input[type="submit"] {
+                background-color: #28a745;
+                border: none;
+                color: white;
+                padding: 10px 20px;
+                border-radius: 6px;
+                cursor: pointer;
+                font-weight: bold;
+                transition: background-color 0.3s ease;
+            }
+
+            /* Cambio de color al pasar el mouse por encima del botón */
+            #notas-form-container input[type="submit"]:hover {
+                background-color: #218838;
+            }
+        </style>
+
+        <script>
+            // Cargar el footer desde un archivo PHP
+            fetch("../footer.php")
+                .then((response) => response.text())
+                .then((html) => {
+                    document.getElementById("footer").innerHTML = html;
+                })
+                .catch((error) => {
+                    console.error("Error al cargar el footer:", error);
+                });
+
+            document.addEventListener("DOMContentLoaded", () => {
+                // Obtener el formulario que pregunta cuántas notas ingresar
+                const cantidadForm = document.getElementById("cantidad-form");
+                // Obtener el contenedor donde se mostrarán los campos para ingresar las notas
+                const notasFormContainer = document.getElementById("notas-form-container");
+                // Obtener el contenedor donde se mostrarán los resultados
+                const resultadoDiv = document.getElementById("resultado");
+
+                // Manejar el envío del formulario de cantidad de notas
+                cantidadForm.addEventListener("submit", (e) => {
+                    e.preventDefault(); // Prevenir el envío normal del formulario
+                    const cantidad = parseInt(document.getElementById("cantidad").value); // Obtener la cantidad de notas
+
+                    // Crear dinámicamente el formulario para ingresar las notas
+                    let formHtml = '<form id="notas-form">';
+                    for (let i = 1; i <= cantidad; i++) {
+                        formHtml += `Nota ${i}: <input type="number" name="notas[]" step="0.01" min="0" max="100" required><br><br>`;
+                    }
+                    formHtml += `<input type="submit" value="Calcular">`;
+                    formHtml += `<input type="hidden" name="cantidad" value="${cantidad}">`;
+                    formHtml += `</form>`;
+                    notasFormContainer.innerHTML = formHtml; // Insertar el formulario generado en el contenedor
+
+                    // Agregar manejador al nuevo formulario generado para calcular estadísticas
+                    document
+                        .getElementById("notas-form")
+                        .addEventListener("submit", function (e) {
+                            e.preventDefault(); // Prevenir el envío normal del formulario
+                            const formData = new FormData(this); // Obtener los datos del formulario
+                            fetch("problema7.php", {
+                                method: "POST", // Enviar los datos al servidor usando POST
+                                body: formData,
+                            })
+                                .then((res) => res.json()) // Procesar la respuesta como JSON
+                                .then((data) => {
+                                    if (data.error) {
+                                        // Si hay un error, mostrarlo
+                                        resultadoDiv.innerHTML = `<p style="color:red;">${data.error}</p>`;
+                                    } else {
+                                        // Si no hay errores, mostrar los resultados estadísticos
+                                        resultadoDiv.innerHTML = `
+                                            <h3>Resultados Estadísticos:</h3>
+                                            Notas ingresadas: [${data.notas.join(", ")}]<br>
+                                            Promedio: <strong>${data.promedio}</strong><br>
+                                            Desviación estándar: <strong>${data.desviacion}</strong><br>
+                                            Nota mínima: <strong>${data.minima}</strong><br>
+                                            Nota máxima: <strong>${data.maxima}</strong><br>
+                                        `;
+                                    }
+                                });
+                        });
+                });
+            });
+        </script>
+    </head>
+
+    <body>
+        <div class="volver">
+            <!-- Enlace para regresar al menú principal -->
+            <a href="../menu.php">< Volver al menú principal</a>
+        </div>
+
+        <h2>Calculadora de Datos Estadísticos</h2>
+
+        <!-- Formulario para ingresar la cantidad de notas -->
+        <form id="cantidad-form">
+            ¿Cuántas notas desea ingresar?
+            <div><input type="number" id="cantidad" min="2" required /></div>
+            <input type="submit" value="Aceptar" />
+        </form>
+
+        <!-- Contenedor donde se mostrará el formulario dinámico para ingresar las notas -->
+        <div id="notas-form-container"></div>
+
+        <!-- Contenedor donde se mostrarán los resultados -->
+        <div id="resultado" style="width: 20%; margin: 20px auto; "></div>
+
+        <!-- Footer que se carga dinámicamente -->
+        <div id="footer"></div>
+    </body>
+</html>

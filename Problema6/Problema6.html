@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Problema #6 - Reparto de Presupuesto Hospitalario</title>
+        <link rel="stylesheet" href="../estilo.css" />
+
+        <script>
+            // Cargar el footer dinámicamente al cargar la página
+            fetch("../footer.php")
+                .then((response) => response.text())  // Obtener el HTML del footer
+                .then((html) => {
+                    document.getElementById("footer").innerHTML = html; // Insertar el footer en el div con id "footer"
+                })
+                .catch((error) => {
+                    console.error("Error al cargar el footer:", error); // Si hay error al cargar el footer
+                });
+
+            // Esperar a que el contenido del documento se haya cargado
+            document.addEventListener("DOMContentLoaded", function () {
+                // Manejar el envío del formulario
+                document
+                    .getElementById("form-reparto") // Obtener el formulario por su ID
+                    .addEventListener("submit", function (event) {
+                        event.preventDefault(); // Prevenir que el formulario se envíe de la manera tradicional
+
+                        // Obtener el valor del presupuesto ingresado por el usuario
+                        const presupuesto = document.getElementById("presupuesto").value;
+
+                        // Enviar el presupuesto al servidor usando fetch
+                        fetch("Problema6.php", {
+                            method: "POST", // Método de la solicitud
+                            body: new FormData(this), // Enviar el formulario como FormData (para obtener los datos del formulario)
+                        })
+                            .then((response) => response.json())  // Convertir la respuesta del servidor a JSON
+                            .then((data) => {
+                                if (data.error) {  // Si hay un error en la respuesta
+                                    document.getElementById("resultado").innerHTML = `<p style="color: red;">${data.error}</p>`; // Mostrar el mensaje de error
+                                } else {  // Si la respuesta es exitosa
+                                    // Mostrar el resultado del reparto
+                                    document.getElementById("resultado").innerHTML = `
+                                        <h3>Resultado del Reparto:</h3>
+                                        <ul>
+                                            <li><strong>Ginecología:</strong> $${data.gineco}</li>
+                                            <li><strong>Traumatología:</strong> $${data.trauma}</li>
+                                            <li><strong>Pediatría:</strong> $${data.pediatria}</li>
+                                        </ul>
+                                    `;
+                                }
+                            })
+                            .catch((error) => {
+                                console.error("Error:", error);  // Si hay un error en la solicitud
+                            });
+                    });
+            });
+        </script>
+    </head>
+    <body>
+        <!-- Botón para volver al menú principal -->
+        <div class="volver">
+            <a href="../menu.php">< Volver al menú principal</a>
+        </div>
+
+        <h1>Reparto de Presupuesto Hospitalario</h1>
+
+        <!-- Formulario para ingresar el presupuesto -->
+        <form id="form-reparto" method="POST">
+            <label for="presupuesto">
+                Ingrese el presupuesto anual del hospital ($):
+            </label>
+            <div>
+                <input
+                    type="number"
+                    name="presupuesto"
+                    id="presupuesto"
+                    required
+                    min="1"
+                />
+            </div>
+            <input type="submit" value="Calcular reparto" />
+        </form>
+
+        <!-- Aquí se mostrarán los resultados del reparto -->
+        <div id="resultado" style="width: 20%; margin: 20px auto;"></div>
+
+        <!-- Aquí se insertará el footer -->
+        <div id="footer"></div>
+    </body>
+</html>

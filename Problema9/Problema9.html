@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <!-- Configuración básica del documento HTML -->
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Problema #9</title>
+        <!-- Enlace a la hoja de estilos -->
+        <link rel="stylesheet" href="../estilo.css" />
+    </head>
+    <body>
+        <!-- Enlace para volver al menú principal -->
+        <div class="volver">
+            <a href="../menu.php">< Volver al menú principal</a>
+        </div>
+
+        <!-- Título de la página -->
+        <h2>Las 15 primeras potencias de 4</h2>
+
+        <!-- Contenedor para mostrar los resultados -->
+        <div id="resultado" class="resultado" style="color: #90ee90; width: 20%; margin: auto;"></div>
+
+        <!-- Contenedor para insertar el footer dinámicamente -->
+        <div id="footer"></div>
+
+        <script>
+            // Llamada fetch para obtener los datos desde Problema9.php
+            fetch("Problema9.php")
+                .then((response) => response.json()) // Convertimos la respuesta a JSON
+                .then((data) => {
+                    // Referencia al contenedor de resultados
+                    const contenedor = document.getElementById("resultado");
+
+                    // Recorremos cada objeto de la respuesta
+                    data.forEach((potencia) => {
+                        // Creamos un nuevo párrafo por cada potencia
+                        const p = document.createElement("p");
+                        // Mostramos el formato: 4^exponente = valor
+                        p.innerHTML = `4<sup>${potencia.exponente}</sup> = ${potencia.valor}`;
+                        // Añadimos el párrafo al contenedor
+                        contenedor.appendChild(p);
+                    });
+                })
+                .catch((error) => {
+                    // En caso de error, mostramos un mensaje rojo
+                    document.getElementById("resultado").innerHTML =
+                        `<p style="color: red;">❌ Error: ${error.message}</p>`;
+                });
+
+            // Cargar dinámicamente el footer desde otro archivo PHP
+            fetch("../footer.php")
+                .then((response) => response.text()) // Convertimos el HTML recibido
+                .then((html) => {
+                    document.getElementById("footer").innerHTML = html;
+                })
+                .catch((error) => {
+                    // Mostrar el error en consola (no en la vista del usuario)
+                    console.error("Error al cargar el footer:", error);
+                });
+        </script>
+    </body>
+</html>

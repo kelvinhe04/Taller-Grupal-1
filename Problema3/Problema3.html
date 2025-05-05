@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Problema #3</title>
+        <link rel="stylesheet" href="../estilo.css" />
+        <!-- Enlace al archivo de estilo externo -->
+
+        <script>
+            // Espera a que todo el contenido del DOM esté cargado
+            document.addEventListener("DOMContentLoaded", function () {
+
+                // Obtener la suma de los primeros 10 números pares desde el archivo PHP
+                fetch("problema3.php")
+                    .then((response) => response.json()) // Convertir la respuesta a formato JSON
+                    .then((data) => {
+                        // Mostrar el resultado dentro del div con id "resultado"
+                        document.getElementById(
+                            "resultado"
+                        ).innerHTML = `<h2>La suma de los primeros 10 números pares es: ${data.suma}</h2>`;
+                    })
+                    .catch((error) => {
+                        // Mostrar error en consola si ocurre un problema con la petición
+                        console.error("Error al obtener la suma:", error);
+                    });
+
+                // Cargar el contenido del footer desde footer.php
+                fetch("../footer.php")
+                    .then((response) => response.text()) // Convertir la respuesta en texto
+                    .then((html) => {
+                        // Insertar el HTML recibido dentro del div con id "footer"
+                        document.getElementById("footer").innerHTML = html;
+                    })
+                    .catch((error) => {
+                        // Mostrar error en consola si ocurre un problema al cargar el footer
+                        console.error("Error al cargar el footer:", error);
+                    });
+            });
+        </script>
+    </head>
+    <body>
+        <!-- Botón de volver al menú principal -->
+        <div class="volver">
+            <a href="../menu.php">< Volver al menú principal</a>
+        </div>
+
+        <!-- Título de la página -->
+        <h1>Calcular la suma de los primeros 10 números pares</h1>
+
+        <!-- Aquí se mostrará dinámicamente el resultado de la suma -->
+        <div id="resultado"></div>
+
+        <!-- Aquí se insertará dinámicamente el contenido del footer -->
+        <div id="footer"></div>
+    </body>
+</html>

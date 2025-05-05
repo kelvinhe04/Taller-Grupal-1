@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Problema #4</title>
+        <link rel="stylesheet" href="../estilo.css" />
+        <!-- Enlace al archivo de estilos -->
+
+        <script>
+            // Espera a que el contenido del DOM esté completamente cargado
+            document.addEventListener("DOMContentLoaded", function () {
+                // Llama al archivo PHP para obtener las sumas de pares e impares
+                fetch("problema4.php")
+                    .then((response) => response.json()) // Convierte la respuesta a JSON
+                    .then((data) => {
+                        // Muestra los resultados en el div con id "resultado"
+                        const resultadoDiv = document.getElementById("resultado");
+                        resultadoDiv.innerHTML = `
+                        <h2>Suma de los números pares entre 1 y 200: <span style="color: #90ee90;">${data.pares}</span></h2>
+                        <h2>Suma de los números impares entre 1 y 200: <span style="color: #90ee90;">${data.impares}</span></h2>
+                    `;
+                    })
+                    .catch((error) => {
+                        // Muestra un mensaje en la consola si hay error al obtener los datos
+                        console.error("Error al obtener los datos:", error);
+                    });
+
+                // Llama al archivo "footer.php" para insertar el pie de página
+                fetch("../footer.php")
+                    .then((response) => response.text()) // Convierte la respuesta en texto
+                    .then((html) => {
+                        // Inserta el contenido del footer en el div correspondiente
+                        document.getElementById("footer").innerHTML = html;
+                    })
+                    .catch((error) => {
+                        // Muestra un error si no se puede cargar el footer
+                        console.error("Error al cargar el footer:", error);
+                    });
+            });
+        </script>
+    </head>
+
+    <body>
+        <!-- Botón/enlace para volver al menú principal -->
+        <div class="volver">
+            <a href="../menu.php">< Volver al menú principal</a>
+        </div>
+
+        <!-- Título principal -->
+        <h1>Sumas entre 1 y 200</h1>
+
+        <!-- Aquí se mostrará el resultado de la suma de pares e impares -->
+        <div id="resultado"></div>
+
+        <!-- Aquí se insertará el contenido del footer -->
+        <div id="footer"></div>
+    </body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Problema #5</title>
+        <!-- Enlace al archivo de estilos -->
+        <link rel="stylesheet" href="../estilo.css" />
+    </head>
+
+    <!-- Script para cargar el contenido del footer automáticamente -->
+    <script>
+        // Cargar el contenido del archivo footer.php al cargar la página
+        fetch("../footer.php")
+            .then((response) => response.text())
+            .then((html) => {
+                // Insertar el contenido del footer dentro del div con id "footer"
+                document.getElementById("footer").innerHTML = html;
+            })
+            .catch((error) => {
+                console.error("Error al cargar el footer:", error);
+            });
+    </script>
+
+    <body>
+        <!-- Botón para volver al menú principal -->
+        <div class="volver">
+            <a href="../menu.php">< Volver al menú principal</a>
+        </div>
+
+        <!-- Título principal -->
+        <h2>Clasifica a 5 personas según su edad</h2>
+
+        <!-- Formulario para ingresar las edades de 5 personas -->
+        <form method="POST" action="Problema5.php">
+            Edad de la persona 1:
+            <input type="number" name="edades[]" min="0" required /><br /><br />
+
+            Edad de la persona 2:
+            <input type="number" name="edades[]" min="0" required /><br /><br />
+
+            Edad de la persona 3:
+            <input type="number" name="edades[]" min="0" required /><br /><br />
+
+            Edad de la persona 4:
+            <input type="number" name="edades[]" min="0" required /><br /><br />
+
+            Edad de la persona 5:
+            <input type="number" name="edades[]" min="0" required /><br /><br />
+
+            <!-- Botón para enviar el formulario -->
+            <input type="submit" value="Clasificar" />
+        </form>
+
+        <!-- Aquí se mostrará el contenido del footer -->
+        <div id="footer"></div>
+    </body>
+</html>

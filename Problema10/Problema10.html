@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Problema #10</title>
+        <link rel="stylesheet" href="../estilo.css" />
+    </head>
+    <body>
+        <!-- Enlace para volver al menú principal -->
+        <div class="volver">
+            <a href="../menu.php">< Volver al menú principal</a>
+        </div>
+
+        <h2>Múltiplos de 4</h2>
+
+        <!-- Formulario para ingresar la cantidad de múltiplos -->
+        <form id="formulario">
+            <label for="numero">¿Cuántos múltiplos de 4 deseas mostrar?</label>
+            <input type="number" id="numero" name="numero" min="1" required />
+            <input type="submit" value="Calcular" />
+        </form>
+
+        <!-- Contenedor donde se mostrará el resultado -->
+        <div
+            id="resultado"
+            style="color: #90ee90; width: 23%; margin-top: 20px; margin: 0 auto"
+        ></div>
+
+        <!-- Aquí se insertará el contenido del footer -->
+        <div id="footer"></div>
+
+        <script>
+            // Cargar el contenido del footer dinámicamente desde un archivo PHP
+            fetch("../footer.php")
+                .then((response) => response.text())
+                .then((html) => {
+                    document.getElementById("footer").innerHTML = html;
+                })
+                .catch((error) => {
+                    console.error("Error al cargar el footer:", error);
+                });
+
+            // Capturar el evento de envío del formulario
+            document
+                .getElementById("formulario")
+                .addEventListener("submit", function (e) {
+                    e.preventDefault(); // Evita que se recargue la página
+
+                    // Obtener el valor del número ingresado
+                    const numero = document.getElementById("numero").value;
+
+                    // Realizar una solicitud POST al archivo PHP para obtener los múltiplos
+                    fetch("problema10.php", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded",
+                        },
+                        body: `numero=${encodeURIComponent(numero)}`,
+                    })
+                        .then((res) => res.text()) // Recibir la respuesta como texto plano
+                        .then((data) => {
+                            // Insertar el resultado en el contenedor
+                            document.getElementById("resultado").innerHTML = data;
+                        });
+                });
+        </script>
+    </body>
+</html>

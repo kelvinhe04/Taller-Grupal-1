@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <!-- Configuración de la codificación de caracteres y título de la página -->
+        <meta charset="UTF-8" />
+        <title>Problema #1</title>
+        <!-- Enlace al archivo de estilos CSS -->
+        <link rel="stylesheet" href="../estilo.css" />
+
+        <script>
+            // Cargar el contenido del footer de manera dinámica
+            fetch("../footer.php") // Se hace una solicitud para obtener el archivo footer.php
+                .then((response) => response.text()) // Convertimos la respuesta a texto
+                .then((html) => {
+                    // Insertamos el contenido del footer dentro del div con id "footer"
+                    document.getElementById("footer").innerHTML = html;
+                })
+                .catch((error) => {
+                    // Si ocurre un error al cargar el footer, se muestra en la consola
+                    console.error("Error al cargar el footer:", error);
+                });
+        </script>
+    </head>
+    <body>
+        <!-- Enlace para volver al menú principal -->
+        <div class="volver">
+            <a href="../menu.php">< Volver al menú principal</a>
+        </div>
+
+        <!-- Título principal de la página -->
+        <h1>Calcular la media de los 5 Primeros Números Positivos</h1>
+
+        <!-- Formulario que enviará los datos para calcular la media -->
+        <form method="POST" action="Problema1.php">
+            <!-- Campos de entrada para los números -->
+            <label for="numero1">Número 1:</label><br />
+            <input type="number" name="numero1" min="1" required /><br /><br />
+
+            <label for="numero2">Número 2:</label><br />
+            <input type="number" name="numero2" min="1" required /><br /><br />
+
+            <label for="numero3">Número 3:</label><br />
+            <input type="number" name="numero3" min="1" required /><br /><br />
+
+            <label for="numero4">Número 4:</label><br />
+            <input type="number" name="numero4" min="1" required /><br /><br />
+
+            <label for="numero5">Número 5:</label><br />
+            <input type="number" name="numero5" min="1" required /><br /><br />
+
+            <!-- Botón de envío del formulario -->
+            <input type="submit" value="Calcular Media" />
+        </form>
+
+        <!-- Aquí se insertará el footer dinámicamente -->
+        <div id="footer"></div>
+    </body>
+</html>
